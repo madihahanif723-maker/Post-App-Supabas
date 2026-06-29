@@ -5,6 +5,7 @@ const publishable_key = "sb_publishable_lZYtDl-Jymf3hKzM_bDlnA_fNcsicie"
 const supabase = createClient(supabase_url, publishable_key)
 console.log(supabase);
 
+function searchPost(){}
 
 async function register(event) {
     event.preventDefault()
@@ -27,8 +28,15 @@ async function register(event) {
         } catch (error) {
             console.log(error);
         }
-        alert(name + " Registered Successfully")
-        // window.location.href = "/dashboard.html"
+        Swal.fire({
+                title: 'Success!',
+                text: (name + " Registered Successfully"),
+                icon: 'success',
+                background: '#1a1a2e',
+                color: '#fff',
+                confirmButtonColor: '#ab47bc'
+            });
+        window.location.href = "/dashboard.html"
     }
 
 }
@@ -68,7 +76,9 @@ async function login(event) {
                 color: '#fff',
                 confirmButtonColor: '#ab47bc'
             });
-            window.location.href = "dashboard.html"
+            setTimeout(() => {
+                window.location.href = "dashboard.html"
+            }, 2000);
         }
     } catch (error) {
         Swal.fire({

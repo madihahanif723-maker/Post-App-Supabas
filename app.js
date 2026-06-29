@@ -7,6 +7,48 @@ var supabase = window.supabase.createClient(
 let editId = null;
 let cardBg = "./images/1.jpg";
 
+async function searchPosts() {
+  var searchInput = document.getElementById('searchInput').value;
+  try {
+    const { data, error } = await supabase
+      .from("Post app table")
+      .select("*")
+      .or(`title.ilike.%${searchInput}%,description.ilike.%${searchInput}%`)
+      .order("id", { ascending: false });
+      console.log(data);
+
+
+      var posts = document.getElementById("posts");
+      posts.innerHTML = "";
+
+    data.forEach(post => {
+      posts.innerHTML += `
+            <div class="card m-2">
+              <div class="card-header">@Post ${post.id}</div>
+              <div style="background-image: url(${post.bg_img || './images/1.jpg'});" class="card-body">
+                <h5 class="card-title">${post.title}</h5>
+                <p class="card-text">${post.description}</p>
+              </div>
+              <div class="ms-auto m-2">
+                  <button onclick="editPost(event, ${post.id})" class="btn btn-success">Edit</button>
+                  <button onclick="deletePost(event, ${post.id})" class="btn btn-danger">Delete</button>
+               </div>
+            </div>
+            `;
+    });
+  if (error) {
+    console.log("search error", error);
+    return;
+  }
+  
+}catch (error) {
+    console.log(error);
+  }
+}
+
+
+
+
 window.addEventListener("DOMContentLoaded", async () => {
   try {
     const { data, error } = await supabase
