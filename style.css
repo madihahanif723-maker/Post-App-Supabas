@@ -1,0 +1,164 @@
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: 'Jost', sans-serif;
+    background: #09090e;
+    color: #f3f4f6;
+    /* Soft glowing ambient backgrounds */
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(171, 71, 188, 0.15) 0px, transparent 50%);
+    background-attachment: fixed;
+}
+
+/* Futuristic Floating Navbar */
+.navbar {
+    background: rgba(13, 13, 27, 0.7) !important;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 18px 0;
+}
+
+.navbar-brand {
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, #8b5cf6, #d946ef);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Post Maker Panel Redesign */
+.card {
+    background: rgba(20, 20, 35, 0.6) !important;
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-radius: 20px !important;
+    padding: 25px !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Sleek Inputs */
+.form-label {
+    text-transform: uppercase;
+    font-size: 0.8em;
+    letter-spacing: 1.5px;
+    color: #a5b4fc;
+    font-weight: 600;
+}
+
+.form-control {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 12px !important;
+    color: #fff !important;
+    padding: 12px !important;
+}
+
+.form-control:focus {
+    border-color: #8b5cf6 !important;
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.25) !important;
+}
+
+/* Image Selector Belt */
+.images {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 12px !important;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    gap: 8px;
+}
+
+.images img {
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    object-fit: cover;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    filter: grayscale(30%);
+}
+
+.images img:hover {
+    transform: scale(1.25) translateY(-4px);
+    filter: grayscale(0%);
+}
+
+.selectedImg {
+    border: 2px solid #d946ef !important;
+    box-shadow: 0 0 15px rgba(217, 70, 239, 0.6);
+    transform: scale(1.15);
+    filter: grayscale(0%) !important;
+}
+
+/* Glass-Action Submit Button */
+.btn-primary {
+    background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%) !important;
+    border: none !important;
+    padding: 10px 24px !important;
+    width: auto !important; /* Auto size for standard clean feel */
+    min-width: 110px;
+    border-radius: 12px !important;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3) !important;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(217, 70, 239, 0.4) !important;
+}
+
+/* Generated Feed Cards */
+.posts .card {
+    border-left: 4px solid #8b5cf6 !important; /* Left accent highlight line */
+    margin-bottom: 24px;
+}
+
+.card-header {
+    background: transparent !important;
+    color: #d946ef !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    font-size: 1.1em;
+    padding-bottom: 12px;
+}
+/* Card content image matching fix */
+.card-body {
+    border-radius: 0 0 16px 16px;
+    padding: 20px !important;
+    /* Is se background image dark ambient lagegi aur text saaf dikhega */
+    background-blend-mode: overlay;
+    background-color: rgba(15, 12, 41, 0.4) !important; 
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #fff !important;
+}
+
+/* Edit and Delete Buttons Modernization */
+.btn-success {
+    background: rgba(46, 213, 115, 0.2) !important;
+    border: 1px solid rgba(46, 213, 115, 0.5) !important;
+    color: #2ed573 !important;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+.btn-success:hover {
+    background: #2ed573 !important;
+    color: #fff !important;
+    box-shadow: 0 0 15px rgba(46, 213, 115, 0.4);
+}
+
+.btn-danger {
+    background: rgba(255, 71, 87, 0.2) !important;
+    border: 1px solid rgba(255, 71, 87, 0.5) !important;
+    color: #ff4757 !important;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+.btn-danger:hover {
+    background: #ff4757 !important;
+    color: #fff !important;
+    box-shadow: 0 0 15px rgba(255, 71, 87, 0.4);
+}
