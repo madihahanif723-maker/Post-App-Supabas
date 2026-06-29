@@ -22,11 +22,11 @@ async function register(event) {
         try {
             const { data, error } = await supabase.auth.signUp({ email, password })
             console.log(data);
-            if(error)console.log(error);
+            if (error) console.log(error);
 
         } catch (error) {
             console.log(error);
-        } 
+        }
         alert(name + " Registered Successfully")
         // window.location.href = "/dashboard.html"
     }
@@ -35,32 +35,55 @@ async function register(event) {
 
 
 async function login(event) {
+
     event.preventDefault()
+
     var loginEmail = document.getElementById("loginEmail").value
     var loginPass = document.getElementById("loginPass").value
-
     try {
         const { data, error } = await supabase.auth.signInWithPassword({
+
             email: loginEmail,
             password: loginPass,
-          })
-          console.log(data);
-          
-          if(error){
+
+        })
+        console.log(data);
+        if (error) {
             console.log(error);
-            alert(error.message)
-        } else {
-            alert("Login Successful")
+           Swal.fire({
+                title: 'Error!',
+                text: error.message,
+                icon: 'error',
+                background: '#1a1a2e',
+                color: '#fff',
+                confirmButtonColor: '#ab47bc'
+            });
+        } 
+        else {
+            Swal.fire({
+                title: 'Success!',
+                text: 'Login Successful',
+                icon: 'success',
+                background: '#1a1a2e',
+                color: '#fff',
+                confirmButtonColor: '#ab47bc'
+            });
             window.location.href = "dashboard.html"
         }
     } catch (error) {
-        console.log(error)
-        alert("Login failed")
+        Swal.fire({
+            title: 'Error!',
+            text: 'Login failed',
+            icon: 'error',
+            background: '#1a1a2e',
+            color: '#fff',
+            confirmButtonColor: '#ab47bc'
+        });
     }
 }
 function logout() {
     window.location.href = "/"
 }
 
-window.register= register
+window.register = register
 window.login = login
