@@ -8,42 +8,54 @@ let editId = null;
 let cardBg = "./images/1.jpg";
 
 async function searchPosts() {
-  var searchInput = document.getElementById('searchInput').value;
+  let searchInput = document.getElementById("searchInput").value
+  console.log(searchInput);
   try {
+    //   const { data, error } = await supabase
+    // .from('My Posts')
+    // .select("*").order('id', { ascending: false })
+    // .ilike('title', `%${searchInput}%`)
+
     const { data, error } = await supabase
-      .from("Post app table")
-      .select("*")
+      .from('Post app table')
+      .select('*')
       .or(`title.ilike.%${searchInput}%,description.ilike.%${searchInput}%`)
-      .order("id", { ascending: false });
-      console.log(data);
 
-
-      var posts = document.getElementById("posts");
-      posts.innerHTML = "";
-
+    var posts = document.getElementById("posts")
+    posts.innerHTML = ""
     data.forEach(post => {
       posts.innerHTML += `
-            <div class="card m-2">
-              <div class="card-header">@Post ${post.id}</div>
-              <div style="background-image: url(${post.bg_img || './images/1.jpg'});" class="card-body">
-                <h5 class="card-title">${post.title}</h5>
-                <p class="card-text">${post.description}</p>
-              </div>
-              <div class="ms-auto m-2">
-                  <button onclick="editPost(event, ${post.id})" class="btn btn-success">Edit</button>
-                  <button onclick="deletePost(event, ${post.id})" class="btn btn-danger">Delete</button>
-               </div>
-            </div>
-            `;
-    });
-  if (error) {
-    console.log("search error", error);
-    return;
-  }
-  
-}catch (error) {
+    <div class="card mb-2">
+             <div class="card-header">${post.id} ~Post</div>
+             <div style="background-image:url(${post.bg_img})" class="card-body">
+               <figure>
+                 <blockquote class="blockquote">
+                   <p>
+                     ${post.title}
+                   </p>
+                 </blockquote>
+                 <figcaption class="blockquote-footer">
+                   ${post.description}
+                 </figcaption>
+               </figure>
+             </div>
+             <div class="ms-auto m-2">
+             <button onclick="editPost(event,${post.id},'${post.description}','${post.title}','${post.bg_img}')" class="btn btn-success">Edit</button>
+             <button onclick="deletePost(event,${post.id})" class="btn btn-danger">Delete</button>
+             </div>
+           </div>
+   `})
+
+    console.log(data);
+    if (!data.length) {
+      posts.innerHTML = "No posts Found"
+    }
+
+    if (error) console.log(error);
+  } catch (error) {
     console.log(error);
   }
+
 }
 
 
@@ -125,6 +137,9 @@ async function post(event) {
       icon: "error",
       title: "Empty Post...",
       text: "Enter title & description",
+      background: '#1a1a2e',
+      color: '#fff',
+      confirmButtonColor: '#ab47bc'
     });
     return;
   }
@@ -175,7 +190,82 @@ function selectImg(src, event) {
   event.target.classList.add("selectedImg");
 }
 
+// Button aur HTML tag ko select karein
+const themeToggleBtn = document.getElementById('theme-toggle');
+const rootElement = document.documentElement;
+
+themeToggleBtn.addEventListener('click', () => {
+  // Check karein ke abhi kaunsi theme chal rahi hai
+  const currentTheme = rootElement.getAttribute('data-theme');
+
+  if (currentTheme === 'light') {
+    // Agar light hai toh dark kar do
+    rootElement.removeAttribute('data-theme');
+    themeToggleBtn.innerHTML = '🌙 Light Mode';
+  } else {
+    // Agar dark hai toh light kar do
+    rootElement.setAttribute('data-theme', 'light');
+    themeToggleBtn.innerHTML = '☀️ Dark Mode';
+  }
+});
+
+// ==========================================
+// 3. LOGOUT FUNCTION (Fixed)
+// ==========================================
+async function logout() {
+    try {
+        const { error } = await supabase.auth.signOut()
+        if (error) {
+            console.log(error)
+            Swal.fire({
+                title: 'Error!',
+                text: error.message,
+                icon: 'error',
+                background: '#1a1a2e',
+                color: '#fff',
+                confirmButtonColor: '#ab47bc'
+            });
+            return
+        }
+        
+        Swal.fire({
+            title: 'Success!',
+            text: 'Logout Successful',
+            icon: 'success',
+            background: '#1a1a2e',
+            color: '#fff',
+            confirmButtonColor: '#ab47bc'
+        });
+        
+        setTimeout(() => {
+            window.location.href = "index.html"
+        }, 1500);
+
+    } catch (err) {
+        console.log(err)
+        Swal.fire({
+            title: 'Error!',
+            text: 'Logout failed',
+            icon: 'error',
+            background: '#1a1a2e',
+            color: '#fff',
+            confirmButtonColor: '#ab47bc'
+        });
+    }
+}
+
+
+
 window.deletePost = deletePost;
 window.editPost = editPost;
 window.post = post;
 window.selectImg = selectImg;
+window.logout = logout
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    var logoutBtn = document.getElementById("logoutBtn");
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", logout);
+    }
+});

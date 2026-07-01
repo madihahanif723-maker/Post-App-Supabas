@@ -15,11 +15,12 @@
     <div class="container-fluid">
       <span class="navbar-brand mb-0 h1">Navbar</span>
       <div class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit" id="searchInput" onclick="searchPosts()">Search</button>
+        <input class="form-control me-2" type="search" id="searchInput" placeholder="Search" aria-label="Search"/>
+        <button class="btn btn-outline-success" type="submit"  onclick="searchPosts()">Search</button>
       </div>
       <div class="d-flex">
-        <button class="btn btn-outline-success me-2" type="button" id="logoutBtn">Logout</button>
+        <button class="btn btn-outline-success me-2" type="button" onclick="logout()" id="logoutBtn">Logout</button>
+        <button id="theme-toggle" class="btn">🌙 Light Mode</button>
       </div>
        
     </div>
@@ -73,6 +74,7 @@
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     crossorigin="anonymous"></script>
   <script src="app.js"></script>
+  
 </body>
 
 </html>
