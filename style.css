@@ -1,216 +1,145 @@
-/* ==========================================================================
-   1. THEME VARIABLES (Yeh dono themes ke rangon ko control karega)
-   ========================================================================== */
-/* By Default: Dark Theme (Jo aapka pehle se tha) */
+/* By Default: Dark Theme */
 :root {
     --bg-main: #09090e;
     --text-main: #f3f4f6;
     --text-white: #ffffff;
     --bg-radial-1: rgba(99, 102, 241, 0.15);
     --bg-radial-2: rgba(171, 71, 188, 0.15);
-    
     --navbar-bg: rgba(13, 13, 27, 0.7);
     --card-bg: rgba(20, 20, 35, 0.6);
     --card-body-bg: rgba(15, 12, 41, 0.4);
     --border-color: rgba(255, 255, 255, 0.06);
-    
     --form-label-color: #a5b4fc;
     --input-bg: rgba(0, 0, 0, 0.3);
     --input-border: rgba(255, 255, 255, 0.08);
     --image-belt-bg: rgba(0, 0, 0, 0.4);
 }
 
-/* Light Theme: (Jab HTML par data-theme="light" lagega) */
+/* Light Theme */
 [data-theme="light"] {
     --bg-main: #f4f6fa;
     --text-main: #1e1e24;
     --text-white: #111111;
     --bg-radial-1: rgba(99, 102, 241, 0.08);
     --bg-radial-2: rgba(217, 70, 239, 0.08);
-    
     --navbar-bg: rgba(255, 255, 255, 0.75);
     --card-bg: rgba(255, 255, 255, 0.65);
     --card-body-bg: rgba(240, 244, 255, 0.5) !important; 
     --border-color: rgba(0, 0, 0, 0.08);
-    
     --form-label-color: #4f46e5;
     --input-bg: rgba(255, 255, 255, 0.8);
     --input-border: rgba(0, 0, 0, 0.12);
     --image-belt-bg: rgba(0, 0, 0, 0.05);
 }
 
-/* ==========================================================================
-   2. CORE STYLES (Aapki CSS variables ke sath connect kar di hai)
-   ========================================================================== */
 body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
+    margin: 0; padding: 0; min-height: 100vh;
     font-family: 'Jost', sans-serif;
-    background: var(--bg-main);
-    color: var(--text-main);
-    /* Soft glowing ambient backgrounds */
+    background: var(--bg-main); color: var(--text-main);
     background-image: 
         radial-gradient(at 0% 0%, var(--bg-radial-1) 0px, transparent 50%),
         radial-gradient(at 100% 100%, var(--bg-radial-2) 0px, transparent 50%);
     background-attachment: fixed;
-    /* Smooth theme change animation */
     transition: background 0.3s ease, color 0.3s ease; 
 }
 
-/* Futuristic Floating Navbar */
 .navbar {
     background: var(--navbar-bg) !important;
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-bottom: 1px solid var(--border-color);
-    padding: 18px 0;
-    transition: background 0.3s ease, border-color 0.3s ease;
+    backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--border-color); padding: 18px 0;
 }
 
 .navbar-brand {
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    font-weight: 800; text-transform: uppercase; letter-spacing: 2px;
     background: linear-gradient(135deg, #8b5cf6, #d946ef);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
 
-/* Post Maker Panel Redesign */
+/* ==========================================================================
+   GOOGLE STYLE FLOATING DROPDOWN MENU 
+   ========================================================================== */
+.avatar-dropdown-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.google-avatar-btn {
+    width: 42px; height: 42px;
+    background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%);
+    color: #ffffff !important; border-radius: 50% !important;
+    display: flex !important; align-items: center; justify-content: center;
+    font-size: 18px !important; font-weight: 700 !important;
+    text-transform: uppercase; border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 4px 10px rgba(139, 92, 246, 0.4);
+    cursor: pointer; transition: transform 0.2s ease;
+}
+
+.google-avatar-btn:hover { transform: scale(1.05); }
+
+.profile-floating-menu {
+    display: none; position: absolute; right: 0; top: 52px; width: 240px;
+    background: rgba(15, 12, 41, 0.95); backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color); border-radius: 14px; padding: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); z-index: 1000;
+    animation: menuSlideIn 0.2s ease forwards;
+}
+
+[data-theme="light"] .profile-floating-menu {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.menu-user-info { text-align: center; }
+
+.logout-menu-btn {
+    width: 100%; background: rgba(255, 71, 87, 0.15) !important;
+    color: #ff4757 !important; border: 1px solid rgba(255, 71, 87, 0.3) !important;
+    padding: 8px; border-radius: 8px; font-weight: 600; cursor: pointer;
+}
+
+.logout-menu-btn:hover { background: #ff4757 !important; color: white !important; }
+
+/* Custom Post Card Header Integration */
+.custom-card-header {
+    display: flex; align-items: center; gap: 12px; padding: 12px 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+.header-user-details { display: flex; flex-direction: column; line-height: 1.2; }
+.username-display { font-weight: 700; font-size: 14px; color: var(--text-white); }
+.email-display { font-size: 12px; color: rgba(255, 255, 255, 0.5); }
+[data-theme="light"] .email-display { color: rgba(0, 0, 0, 0.6); }
+
+@keyframes menuSlideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Baki Sabhi Existing Card Styles --- */
 .card {
-    background: var(--card-bg) !important;
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid var(--border-color) !important;
-    border-radius: 20px !important;
-    padding: 25px !important;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
-    transition: background 0.3s ease, border-color 0.3s ease;
+    background: var(--card-bg) !important; backdrop-filter: blur(25px);
+    border: 1px solid var(--border-color) !important; border-radius: 20px !important;
+    padding: 25px !important; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
 }
-
-/* Sleek Inputs */
-.form-label {
-    text-transform: uppercase;
-    font-size: 0.8em;
-    letter-spacing: 1.5px;
-    color: var(--form-label-color);
-    font-weight: 600;
-    transition: color 0.3s ease;
-}
-
-.form-control {
-    background: var(--input-bg) !important;
-    border: 1px solid var(--input-border) !important;
-    border-radius: 12px !important;
-    color: var(--text-white) !important;
-    padding: 12px !important;
-    transition: background 0.3s ease, border-color 0.3s ease;
-}
-
-.form-control:focus {
-    border-color: #8b5cf6 !important;
-    box-shadow: 0 0 15px rgba(139, 92, 246, 0.25) !important;
-}
-
-/* Image Selector Belt */
-.images {
-    background: var(--image-belt-bg);
-    padding: 12px !important;
-    border-radius: 14px;
-    border: 1px solid var(--border-color);
-    gap: 8px;
-    transition: background 0.3s ease;
-}
-
-.images img {
-    width: 45px;
-    height: 45px;
-    border-radius: 10px;
-    object-fit: cover;
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    filter: grayscale(30%);
-}
-
-.images img:hover {
-    transform: scale(1.25) translateY(-4px);
-    filter: grayscale(0%);
-}
-
-.selectedImg {
-    border: 2px solid #d946ef !important;
-    box-shadow: 0 0 15px rgba(217, 70, 239, 0.6);
-    transform: scale(1.15);
-    filter: grayscale(0%) !important;
-}
-
-/* Glass-Action Submit Button */
-.btn-primary {
-    background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%) !important;
-    border: none !important;
-    padding: 10px 24px !important;
-    width: auto !important;
-    min-width: 110px;
-    border-radius: 12px !important;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3) !important;
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 24px rgba(217, 70, 239, 0.4) !important;
-}
-
-/* Generated Feed Cards */
-.posts .card {
-    border-left: 4px solid #8b5cf6 !important;
-    margin-bottom: 24px;
-}
-
-.card-header {
-    background: transparent !important;
-    color: #d946ef !important;
-    border-bottom: 1px solid var(--border-color) !important;
-    font-size: 1.1em;
-    padding-bottom: 12px;
-}
-
-/* Card content image matching fix */
-.card-body {
-    border-radius: 0 0 16px 16px;
-    padding: 20px !important;
-    background-blend-mode: overlay;
-    background-color: var(--card-body-bg) !important; 
-    background-size: cover;
-    background-repeat: no-repeat;
-    color: var(--text-white) !important;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Edit and Delete Buttons Modernization */
-.btn-success {
-    background: rgba(46, 213, 115, 0.2) !important;
-    border: 1px solid rgba(46, 213, 115, 0.5) !important;
-    color: #2ed573 !important;
-    backdrop-filter: blur(5px);
-    transition: all 0.3s ease;
-}
-.btn-success:hover {
-    background: #2ed573 !important;
-    color: #fff !important;
-    box-shadow: 0 0 15px rgba(46, 213, 115, 0.4);
-}
-
-.btn-danger {
-    background: rgba(255, 71, 87, 0.2) !important;
-    border: 1px solid rgba(255, 71, 87, 0.5) !important;
-    color: #ff4757 !important;
-    backdrop-filter: blur(5px);
-    transition: all 0.3s ease;
-}
-.btn-danger:hover {
-    background: #ff4757 !important;
-    color: #fff !important;
-    box-shadow: 0 0 15px rgba(255, 71, 87, 0.4);
-}
+.form-label { text-transform: uppercase; font-size: 0.8em; letter-spacing: 1.5px; color: var(--form-label-color); font-weight: 600; }
+.form-control { background: var(--input-bg) !important; border: 1px solid var(--input-border) !important; border-radius: 12px !important; color: var(--text-white) !important; padding: 12px !important; }
+.form-control:focus { border-color: #8b5cf6 !important; box-shadow: 0 0 15px rgba(139, 92, 246, 0.25) !important; }
+.images { background: var(--image-belt-bg); padding: 12px !important; border-radius: 14px; border: 1px solid var(--border-color); gap: 8px; }
+.images img { width: 45px; height: 45px; border-radius: 10px; object-fit: cover; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); filter: grayscale(30%); }
+.images img:hover { transform: scale(1.25) translateY(-4px); filter: grayscale(0%); }
+.selectedImg { border: 2px solid #d946ef !important; box-shadow: 0 0 15px rgba(217, 70, 239, 0.6); transform: scale(1.15); filter: grayscale(0%) !important; }
+.btn-primary { background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%) !important; border: none !important; padding: 10px 24px !important; border-radius: 12px !important; font-weight: 600; box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3) !important; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(217, 70, 239, 0.4) !important; }
+.card-body { border-radius: 0 0 16px 16px; padding: 20px !important; background-blend-mode: overlay; background-color: var(--card-body-bg) !important; background-size: cover; background-repeat: no-repeat; color: var(--text-white) !important; }
+.btn-success { background: rgba(46, 213, 115, 0.2) !important; border: 1px solid rgba(46, 213, 115, 0.5) !important; color: #2ed573 !important; }
+.btn-danger { background: rgba(255, 71, 87, 0.2) !important; border: 1px solid rgba(255, 71, 87, 0.5) !important; color: #ff4757 !important; }
+.post-actions-container { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 12px; margin-top: 15px; }
+.action-buttons { display: flex; gap: 15px; margin-bottom: 10px; }
+.action-btn { background: transparent; border: 1px solid rgba(255, 255, 255, 0.2); color: #ffffff; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 6px; }
+.action-btn.liked { background: #00d2ff; color: #121212; border-color: #00d2ff; font-weight: bold; }
+.comment-box-section { margin-top: 12px; animation: fadeIn 0.3s ease; }
+.comment-input-group { display: flex; gap: 8px; }
+.comment-input { flex: 1; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; padding: 8px 12px; color: #fff; font-size: 14px; }
+.send-comment-btn { background: #00d2ff; color: #121212; border: none; border-radius: 8px; padding: 8px 16px; cursor: pointer; font-weight: 600; }
+.comments-list { list-style: none; padding: 0; margin-top: 10px; max-height: 150px; overflow-y: auto; }
+.comments-list li { background: rgba(255, 255, 255, 0.03); padding: 6px 12px; border-radius: 6px; margin-bottom: 6px; font-size: 13px; color: #e0e0e0; border-left: 3px solid #00d2ff; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
