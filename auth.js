@@ -151,7 +151,7 @@ const { data } = supabase.auth.onAuthStateChange((event, session) => {
             color: '#fff',
             confirmButtonColor: '#ab47bc'
         });
-        // location.href = "dashboard.html";
+        location.href = "dashboard.html";
 
     }
 })
